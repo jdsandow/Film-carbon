@@ -1,13 +1,16 @@
-from pdf2image import convert_from_path
+from pdf2image import convert_from_path # Uses Poppler
 import pytesseract
-from pytesseract import Output
 import numpy as np
 import cv2
 import pandas as pd
 import requests
 import os
 
-POPPLER_PATH = r"C:\Program Files\poppler-24.08.0\Library\bin"
+# Install Poppler and Tesseract OCR. 
+# These settings might not be needed, depending on how you installed them and your PATH environment settings.
+POPPLER_PATH = r"C:\Program Files\poppler-24.08.0\Library\bin" # Change this to your Poppler path
+TESSERACT_PATH = r"C:\Program Files\Tesseract-OCR\tesseract.exe" # Change this to your Tesseract path
+pytesseract.pytesseract.tesseract_cmd = TESSERACT_PATH
 KEYWORD = "energy and carbon report"
 
 df = pd.read_csv("filing_history.csv") # Generated using ch-filings-list.py
@@ -32,7 +35,7 @@ def find_keyword_page_via_ocr(pdf_path, keyword, poppler_path):
     return None, pages
 
 
-# Iteratation
+# Iteration
 for index, row in df.iterrows():
     link = row.get("link")
     links.append(link)
@@ -61,4 +64,6 @@ for index, row in df.iterrows():
 # Overwrites the original file
 df['carbon_page'] = carbon_page
 df['used_link'] = links
+df['same_link'] = df['link'] == df['used_link']
+
 df.to_csv("filing_history.csv", index=False)
