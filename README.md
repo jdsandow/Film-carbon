@@ -7,8 +7,9 @@ These two scripts perform the first two functions of a yet-to-be-completed proce
 
 ### Examples of tables
 
-(example1.PNG)
+<img src="example1.PNG"/>
 
-(example2.PNG)
+<img src="example2.PNG"/>
 
-(example3.PNG)
+<img src="example3.PNG"/>
+(This is split over two pages.)
